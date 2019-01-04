@@ -236,7 +236,7 @@ function mrkapowski_social_links_icons() {
 /**
  * Returns the number of webmentions, pings/trackbacks the current post has
  */
-if ( ! function_exists( 'mrkapowski_comment' ) ) {
+if ( ! function_exists( 'mrkapowski_comment_count_mentions' ) ) {
 	function mrkapowski_comment_count_mentions() {
 		$args   = array(
 			'post_id'  => get_the_ID(),
