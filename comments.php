@@ -37,8 +37,7 @@ if ( post_password_required() ) {
 			<?php
 				wp_list_comments(
 					array(
-						'type'     => 'comment',
-						'callback' => 'mrkapowski_comment',
+						'type' => 'comment',
 					)
 				);
 			?>
@@ -47,9 +46,9 @@ if ( post_password_required() ) {
 		<?php endif; ?>
 	</section>
 	<footer>
-	<?php if ( comments_open() ) : ?>
+	<?php // if ( comments_open() ) : ?>
 		<div id="commentform-top"></div>
 		<?php comment_form( mrkapowski_comment_form_args() ); ?>
-	<?php endif; ?>
+	<?php // endif; ?>
 	</footer>
 </footer>

@@ -24,6 +24,7 @@ if ( ! function_exists( 'mrkapowski_setup' ) ) {
 	// Sets up theme defaults and registers support for various WordPress features.
 
 	function mrkapowski_setup() {
+		//add_theme_support( 'microformats2' );
 		add_theme_support( 'automatic-feed-links' );
 		add_theme_support(
 			'html5',
@@ -31,6 +32,7 @@ if ( ! function_exists( 'mrkapowski_setup' ) ) {
 				'comment-list',
 				'search-form',
 				'comment-form',
+				'comment-list',
 				'gallery',
 				'caption',
 			)
@@ -246,49 +248,20 @@ if ( ! function_exists( 'mrkapowski_comment_count_mentions' ) ) {
 		return count( $_query->query( $args ) );
 	}
 }
+
 /**
- * Formats the current comment into markup compatible with the K theme.
+ * Custom Comment Walker template.
  */
-if ( ! function_exists( 'mrkapowski_comment' ) ) {
-	function mrkapowski_comment( $comment, $args, $depth ) {
-		$GLOBALS['comment']    = $comment; // TODO: Can this be changed to get rid of the $GLOBALS[]?
-		$comment_content_class = ''; // Used to style the comment-content differently when comment is awaiting moderation ?>
-			<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-			<?php echo get_avatar( $comment, 64 ); ?>
-			<div class="comment">
-				<div class="comment-author vcard h-card">
-					<h6 class="">
-						<span class="fn"><?php comment_author_link(); ?></span>
-						<small class="text-muted"> @ <a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>" class="card-link">
-							<time pubdate datetime="<?php comment_time( 'c' ); ?>">
-								<?php echo esc_html( get_comment_date() ); ?>
-							</time>
-						</a></small></h6>
-					<?php if ( '0' === $comment->comment_approved ) : ?>
-						<?php $comment_content_class = 'unapproved'; ?>
-						<em><?php esc_html_e( ' - Your comment is awaiting moderation.', 'mrkapowski' ); ?></em>
-					<?php endif; ?>
-			</div>
-			<div class="comment-body">
-				<div class="comment-content card-text <?php echo esc_html( $comment_content_class ); ?>"><?php comment_text(); ?></div>
-				<?php
-				comment_reply_link(
-					array_merge(
-						$args,
-						array(
-							'depth'     => $depth,
-							'max_depth' => $args['max_depth'],
-							'class'     => 'card-link',
-						)
-					)
-				);
-				?>
-				<hr>
-			</div>
-		</div>
-		<?php
-	}
+require get_template_directory() . '/classes/class-mrkapowski-walker-comment.php';
+
+/**
+ * Registers the custom walker for this theme
+ */
+function mrkapowski_filter_comment_args( $args ) {
+	$args['walker'] = new MrKapowski_Walker_Comment();
+	return $args;
 }
+add_filter( 'wp_list_comments_args', 'mrkapowski_filter_comment_args', 12 );
 
 /**
  * Formats the comment form into markup compatible with the K theme.
