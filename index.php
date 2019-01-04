@@ -21,7 +21,7 @@
 									&nbsp;
 								</li>
 								<li class="nav-item prev">
-									<a href="/sitemap" title="Older posts can be found in the Archive" class="nav-link">Older posts can be found in the Archive <svg class="icon-arrow-right"><use xlink:href="<?php echo get_theme_file_uri('assets/img/icons.svg#icon-arrow-right'); ?>"></use></svg></a>
+									<a href="/sitemap" title="Older posts can be found in the Archive" class="nav-link">Older posts can be found in the Archive <svg class="icon-arrow-right"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( 'assets/img/solid.svg#arrow-right' ) ); ?>"></use></svg></a>
 								</li>
 							</ul>
 							<hr>

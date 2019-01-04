@@ -80,7 +80,7 @@
 						<div class="card-footer justify-content-center">
 							<div class="d-flex justify-content-center">
 								<a class="card-link text-muted" href="<?php echo esc_attr( get_feed_link() ); ?>" rel="alternative" type="application/rss+xml" title="Subscribe using RSS">
-									<svg class="icon-rss icon-lg"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( '/assets/img/icons.svg#icon-rss' ) ); ?>"></use></svg>
+									<svg class="icon-rss icon-lg"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( '/assets/img/solid.svg#rss' ) ); ?>"></use></svg>
 								</a>
 							</div>
 						</div>

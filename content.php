@@ -45,7 +45,7 @@
 						<div itemprop="articleBody" class="e-content">
 							<?php the_content(); ?>
 							<p><a href="<?php the_permalink(); ?>" rel="permalink" itemprop="mainEntityOfPage" class="u-url" >
-								<svg class="icon-bookmark"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( 'assets/img/icons.svg#icon-bookmark' ) ); ?>"></use></svg>
+								<svg class="icon-bookmark"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( 'assets/img/solid.svg#bookmark' ) ); ?>"></use></svg>
 							</a></p>
 						</div>
 						<hr>
@@ -59,7 +59,7 @@
 										<?php
 										next_post_link(
 											'%link',
-											'<svg class="icon-arrow-left"><use xlink:href="' . get_theme_file_uri( 'assets/img/icons.svg#icon-arrow-left' ) . '"></use></svg> Newer: %title'
+											'<svg class="icon-arrow-left"><use xlink:href="' . get_theme_file_uri( 'assets/img/solid.svg#arrow-left' ) . '"></use></svg> Newer: %title'
 										);
 										?>
 									<?php endif; ?>
@@ -70,7 +70,7 @@
 										<?php
 										previous_post_link(
 											'%link',
-											'Older: %title <svg class="icon-arrow-right"><use xlink:href="' . get_theme_file_uri( 'assets/img/icons.svg#icon-arrow-right' ) . '"></use></svg>'
+											'Older: %title <svg class="icon-arrow-right"><use xlink:href="' . get_theme_file_uri( 'assets/img/solid.svg#arrow-right' ) . '"></use></svg>'
 										);
 										?>
 									<?php endif; ?>

@@ -138,9 +138,9 @@ function mrkapowski_get_svg( $args = array() ) {
 	 *
 	 * See https://core.trac.wordpress.org/ticket/38387.
 	 */
-	$svg .= ' <use href="' . get_template_directory_uri() . '/assets/img/icons.svg#icon-' . esc_html( $args['icon'] ) . '" xlink:href="' . get_template_directory_uri() . '/assets/img/icons.svg#icon-' . esc_html( $args['icon'] ) . '"></use> ';
+	$svg .= ' <use href="' . get_template_directory_uri() . '/assets/img/brands.svg#' . esc_html( $args['icon'] ) . '" xlink:href="' . get_template_directory_uri() . '/assets/img/brands.svg#' . esc_html( $args['icon'] ) . '"></use> ';
 
-	// Add mrkapowski markup to use as a fallback for browsers that do not support SVGs.
+	// Add markup to use as a fallback for browsers that do not support SVGs.
 	if ( $args['fallback'] ) {
 		$svg .= '<span class="svg-fallback icon-' . esc_attr( $args['icon'] ) . '"></span>';
 	}
@@ -196,34 +196,33 @@ add_filter( 'walker_nav_menu_start_el', 'mrkapowski_nav_menu_social_icons', 10, 
 function mrkapowski_social_links_icons() {
 	// Supported social links icons.
 	$social_links_icons = array(
-		'github.com'    => 'github',
-		'twitter.com'   => 'twitter',
-		'instagram.com' => 'instagram',
-		// TODO: Icons for below services
-		// 'codepen.io'      => 'codepen',
-		// 'digg.com'        => 'digg',
-		// 'dribbble.com'    => 'dribbble',
-		// 'dropbox.com'     => 'dropbox',
-		// 'facebook.com'    => 'facebook',
-		// 'flickr.com'      => 'flickr',
-		// 'foursquare.com'  => 'foursquare',
-		// 'linkedin.com'    => 'linkedin-alt',
-		// 'mailto:'         => 'mail',
-		// 'pinterest.com'   => 'pinterest-alt',
-		// 'getpocket.com'   => 'pocket',
-		// 'reddit.com'      => 'reddit',
-		// 'skype.com'       => 'skype',
-		// 'skype:'          => 'skype',
-		// 'soundcloud.com'  => 'cloud',
-		// 'spotify.com'     => 'spotify',
-		// 'stumbleupon.com' => 'stumbleupon',
-		// 'tumblr.com'      => 'tumblr',
-		// 'twitch.tv'       => 'twitch',
-		// 'vimeo.com'       => 'vimeo',
-		// 'weibo.com'       => 'weibo',
-		// 'wordpress'       => 'wordpress',
-		// 'wordpress.com'   => 'wordpress',
-		// 'youtube.com'     => 'youtube',
+		'github.com'      => 'github',
+		'twitter.com'     => 'twitter',
+		'instagram.com'   => 'instagram',
+		'codepen.io'      => 'codepen',
+		'digg.com'        => 'digg',
+		'dribbble.com'    => 'dribbble',
+		'dropbox.com'     => 'dropbox',
+		'facebook.com'    => 'facebook',
+		'flickr.com'      => 'flickr',
+		'foursquare.com'  => 'foursquare',
+		'linkedin.com'    => 'linkedin-alt',
+		'mailto:'         => 'mail',
+		'pinterest.com'   => 'pinterest-alt',
+		'getpocket.com'   => 'pocket',
+		'reddit.com'      => 'reddit',
+		'skype.com'       => 'skype',
+		'skype:'          => 'skype',
+		'soundcloud.com'  => 'cloud',
+		'spotify.com'     => 'spotify',
+		'stumbleupon.com' => 'stumbleupon',
+		'tumblr.com'      => 'tumblr',
+		'twitch.tv'       => 'twitch',
+		'vimeo.com'       => 'vimeo',
+		'weibo.com'       => 'weibo',
+		'wordpress'       => 'wordpress',
+		'wordpress.com'   => 'wordpress',
+		'youtube.com'     => 'youtube',
 	);
 
 	/**
