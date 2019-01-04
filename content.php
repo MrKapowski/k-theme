@@ -36,7 +36,7 @@
 								<meta itemprop="url" content="<?php bloginfo( 'url' ); ?>">
 								<meta itemprop="name" content="<?php bloginfo( 'name' ); ?>">
 								<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-									<meta itemprop="url" content="<?php esc_attr( get_theme_file_uri( 'assets/img/kapow_magenta.png' ) ); ?>">
+									<meta itemprop="url" content="<?php echo esc_attr( get_theme_file_uri( 'assets/img/kapow_magenta.png' ) ); ?>">
 									<meta itemprop="height" content="295px">
 									<meta itemprop="width" content="300px">
 								</div>
@@ -45,7 +45,7 @@
 						<div itemprop="articleBody" class="e-content">
 							<?php the_content(); ?>
 							<p><a href="<?php the_permalink(); ?>" rel="permalink" itemprop="mainEntityOfPage" class="u-url" >
-								<svg class="icon-bookmark"><use xlink:href="<?php esc_attr( get_theme_file_uri( 'assets/img/icons.svg#icon-bookmark' ) ); ?>"></use></svg>
+								<svg class="icon-bookmark"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( 'assets/img/icons.svg#icon-bookmark' ) ); ?>"></use></svg>
 							</a></p>
 						</div>
 						<hr>
