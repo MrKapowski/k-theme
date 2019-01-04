@@ -16,7 +16,7 @@
 							<small>
 								<time class="dt-published" itemprop="datePublished" datetime="<?php echo esc_attr( get_the_time( 'c' ) ); ?>">
 									<a href="<?php the_permalink(); ?>" class="u-url u-uid" itemprop="mainEntityOfPage" rel="permalink">
-										<span itemprop="headline" class="e-name entry-title">
+										<span itemprop="headline" class="entry-title">
 											<?php echo esc_html( get_the_date( 'F j, Y' ) ); ?> at <?php the_time( 'g:i a' ); ?>
 										</span>
 									</a>
