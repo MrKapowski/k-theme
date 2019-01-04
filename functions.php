@@ -24,8 +24,13 @@ if ( ! function_exists( 'mrkapowski_setup' ) ) {
 	// Sets up theme defaults and registers support for various WordPress features.
 
 	function mrkapowski_setup() {
-		//add_theme_support( 'microformats2' );
+		// Register support for microformats + microdata
+		add_theme_support( 'microformats2' );
+		add_theme_support( 'microformats' );
+		add_theme_support( 'microdata' );
+
 		add_theme_support( 'automatic-feed-links' );
+		// Register HTML5 support
 		add_theme_support(
 			'html5',
 			array(
@@ -49,9 +54,28 @@ if ( ! function_exists( 'mrkapowski_setup' ) ) {
 		add_theme_support( 'responsive-embeds' );
 		add_post_type_support( 'post', 'post-formats' );
 		register_taxonomy_for_object_type( 'post_format', 'post' );
+		/**
+		 * Enable features from Soil when plugin is activated
+		 * @link https://roots.io/plugins/soil/
+		 */
+		add_theme_support( 'soil-clean-up' );
+		add_theme_support( 'soil-jquery-cdn' );
+		add_theme_support( 'soil-js-to-footer' );
+		add_theme_support( 'soil-nav-walker' );
+		add_theme_support( 'soil-nice-search' );
 	}
 }
 add_action( 'after_setup_theme', 'mrkapowski_setup' );
+
+function mrkapowski_semantic_linkbacks() {
+	remove_action( 'comment_form_before', array( 'Linkbacks_Handler', 'show_mentions' ) );
+	remove_action( 'comment_form_comments_closed', array( 'Linkbacks_Handler', 'show_mentions' ) );
+	remove_filter( 'wp_list_comments_args', array( 'Linkbacks_Handler', 'filter_comment_args' ) );
+
+	add_action( 'comment_mentions', array( 'Linkbacks_Handler', 'show_mentions' ) );
+}
+
+add_action( 'wp_loaded', 'mrkapowski_semantic_linkbacks' );
 
 function mrkapowski_special_nav_class( $atts, $item, $args ) {
 	$class         = 'card-link text-muted';
@@ -60,194 +84,9 @@ function mrkapowski_special_nav_class( $atts, $item, $args ) {
 }
 
 /**
- * Return SVG markup.
- *
- * @param array $args {
- *     Parameters needed to display an SVG.
- *
- *     @type string $icon  Required SVG icon filename.
- *     @type string $title Optional SVG title.
- *     @type string $desc  Optional SVG description.
- * }
- * @return string SVG markup.
- */
-function mrkapowski_get_svg( $args = array() ) {
-	// Make sure $args are an array.
-	if ( empty( $args ) ) {
-		return esc_html__( 'Please define default parameters in the form of an array.', 'mrkapowski' );
-	}
-
-	// Define an icon.
-	if ( false === array_key_exists( 'icon', $args ) ) {
-		return esc_html__( 'Please define an SVG icon filename.', 'mrkapowski' );
-	}
-
-	// Set defaults.
-	$defaults = array(
-		'icon'     => '',
-		'title'    => '',
-		'desc'     => '',
-		'fallback' => false,
-	);
-
-	// Parse args.
-	$args = wp_parse_args( $args, $defaults );
-
-	// Set aria hidden.
-	$aria_hidden = ' aria-hidden="true"';
-
-	// Set ARIA.
-	$aria_labelledby = '';
-
-	/*
-	 * mrkapowski theme doesn't use the SVG title or description attributes; non-decorative icons are described with .screen-reader-text.
-	 *
-	 * However, child themes can use the title and description to add information to non-decorative SVG icons to improve accessibility.
-	 *
-	 * Example 1 with title: <?php echo mrkapowski_get_svg( array( 'icon' => 'arrow-right', 'title' => __( 'This is the title', 'textdomain' ) ) ); ?>
-	 *
-	 * Example 2 with title and description: <?php echo mrkapowski_get_svg( array( 'icon' => 'arrow-right', 'title' => __( 'This is the title', 'textdomain' ), 'desc' => __( 'This is the description', 'textdomain' ) ) ); ?>
-	 *
-	 * See https://www.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/.
-	 */
-	if ( $args['title'] ) {
-		$aria_hidden     = '';
-		$unique_id       = uniqid();
-		$aria_labelledby = ' aria-labelledby="title-' . $unique_id . '"';
-
-		if ( $args['desc'] ) {
-			$aria_labelledby = ' aria-labelledby="title-' . $unique_id . ' desc-' . $unique_id . '"';
-		}
-	}
-
-	// Begin SVG markup.
-	$svg = '<svg class="icon icon-2x icon-' . esc_attr( $args['icon'] ) . '"' . $aria_hidden . $aria_labelledby . ' role="img">';
-
-	// Display the title.
-	if ( $args['title'] ) {
-		$svg .= '<title id="title-' . $unique_id . '">' . esc_html( $args['title'] ) . '</title>';
-
-		// Display the desc only if the title is already set.
-		if ( $args['desc'] ) {
-			$svg .= '<desc id="desc-' . $unique_id . '">' . esc_html( $args['desc'] ) . '</desc>';
-		}
-	}
-
-	/*
-	 * Display the icon.
-	 *
-	 * The whitespace around `<use>` is intentional - it is a work around to a keyboard navigation bug in Safari 10.
-	 *
-	 * See https://core.trac.wordpress.org/ticket/38387.
-	 */
-	$svg .= ' <use href="' . get_template_directory_uri() . '/assets/img/brands.svg#' . esc_html( $args['icon'] ) . '" xlink:href="' . get_template_directory_uri() . '/assets/img/brands.svg#' . esc_html( $args['icon'] ) . '"></use> ';
-
-	// Add markup to use as a fallback for browsers that do not support SVGs.
-	if ( $args['fallback'] ) {
-		$svg .= '<span class="svg-fallback icon-' . esc_attr( $args['icon'] ) . '"></span>';
-	}
-
-	$svg .= '</svg>';
-
-	return $svg;
-}
-
-/**
- * Display an SVG.
- *
- * @param  array  $args  Parameters needed to display an SVG.
- */
-function mrkapowski_do_svg( $args = array() ) {
-	echo esc_html( mrkapowski_get_svg( $args ) );
-}
-
-/**
- * Display SVG icons in social links menu.
- *
- * @param  string  $item_output The menu item output.
- * @param  WP_Post $item        Menu item object.
- * @param  int     $depth       Depth of the menu.
- * @param  array   $args        wp_nav_menu() arguments.
- * @return string  $item_output The menu item output with social icon.
- */
-function mrkapowski_nav_menu_social_icons( $item_output, $item, $depth, $args ) {
-	// Get supported social icons.
-	$social_icons = mrkapowski_social_links_icons();
-
-	// Change SVG icon inside social links menu if there is supported URL.
-	if ( 'social' === $args->theme_location ) {
-		foreach ( $social_icons as $attr => $value ) {
-			if ( false !== strpos( $item_output, $attr ) ) {
-				$item_output = str_replace( $args->link_after, '</span>' . mrkapowski_get_svg( array( 'icon' => esc_attr( $value ) ) ), $item_output );
-			}
-		}
-	}
-
-	return $item_output;
-}
-/**
  * Filters the Social menu to add social media profile icons
  */
 add_filter( 'walker_nav_menu_start_el', 'mrkapowski_nav_menu_social_icons', 10, 4 );
-
-/**
- * Returns an array of supported social links ( URL and icon name ).
- *
- * @return array $social_links_icons
- */
-function mrkapowski_social_links_icons() {
-	// Supported social links icons.
-	$social_links_icons = array(
-		'github.com'      => 'github',
-		'twitter.com'     => 'twitter',
-		'instagram.com'   => 'instagram',
-		'codepen.io'      => 'codepen',
-		'digg.com'        => 'digg',
-		'dribbble.com'    => 'dribbble',
-		'dropbox.com'     => 'dropbox',
-		'facebook.com'    => 'facebook',
-		'flickr.com'      => 'flickr',
-		'foursquare.com'  => 'foursquare',
-		'linkedin.com'    => 'linkedin-alt',
-		'mailto:'         => 'mail',
-		'pinterest.com'   => 'pinterest-alt',
-		'getpocket.com'   => 'pocket',
-		'reddit.com'      => 'reddit',
-		'skype.com'       => 'skype',
-		'skype:'          => 'skype',
-		'soundcloud.com'  => 'cloud',
-		'spotify.com'     => 'spotify',
-		'stumbleupon.com' => 'stumbleupon',
-		'tumblr.com'      => 'tumblr',
-		'twitch.tv'       => 'twitch',
-		'vimeo.com'       => 'vimeo',
-		'weibo.com'       => 'weibo',
-		'wordpress'       => 'wordpress',
-		'wordpress.com'   => 'wordpress',
-		'youtube.com'     => 'youtube',
-	);
-
-	/**
-	 * Filters mrkapowski theme social links menu icons.
-	 *
-	 * @param array $social_links_icons
-	 */
-	return apply_filters( 'mrkapowski_nav_social_icons', $social_links_icons );
-}
-
-/**
- * Returns the number of webmentions, pings/trackbacks the current post has
- */
-if ( ! function_exists( 'mrkapowski_comment_count_mentions' ) ) {
-	function mrkapowski_comment_count_mentions() {
-		$args   = array(
-			'post_id'  => get_the_ID(),
-			'type__in' => array( 'pings', 'webmention' ),
-		);
-		$_query = new WP_Comment_Query();
-		return count( $_query->query( $args ) );
-	}
-}
 
 /**
  * Custom Comment Walker template.
@@ -263,102 +102,18 @@ function mrkapowski_filter_comment_args( $args ) {
 	$args['walker'] = new MrKapowski_Walker_Comment();
 	return $args;
 }
+
 /**
  * Filters wp_list_comments $args to apply our Walker_Comment
  * @since K 0.8.4
  */
-add_filter( 'wp_list_comments_args', 'mrkapowski_filter_comment_args', 12 );
+add_filter( 'wp_list_comments_args', 'mrkapowski_filter_comment_args' );
 
-/**
- * Formats the comment form into markup compatible with the K theme.
- */
-if ( ! function_exists( 'mrkapowski_comment_form_args' ) ) {
-	function mrkapowski_comment_form_args() {
-		if ( ! is_user_logged_in() ) {
-			$comment_notes_before = '';
-			$comment_notes_after  = '';
-		} else {
-			$comment_notes_before = '';
-			$comment_notes_after  = '';
-		}
-
-		$user          = wp_get_current_user();
-		$commenter     = wp_get_current_commenter();
-		$req           = get_option( 'require_name_email' );
-		$aria_req      = ( $req ? " aria-required='true'" : '' );
-		$consent       = empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"';
-		$login_link    = sprintf(// translators:
-			__( 'You must be <a href="%s">logged in</a> to post a comment.', 'mrkapowski' ),
-			wp_login_url( apply_filters( 'the_permalink', get_permalink() ) )
-		);
-		$loggedin_link = sprintf(// translators:
-			__( 'Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" title="Log out of this account">Log out?</a>', 'mrkapowski' ),
-			admin_url( 'profile.php' ),
-			$user->display_name,
-			wp_logout_url( apply_filters( 'the_permalink', get_permalink() ) )
-		);
-
-		$args = array(
-			'id_form'              => 'commentform',
-			'id_submit'            => 'submit',
-			'title_reply'          => 'Leave a comment',
-			// translators:
-			'title_reply_to'       => __( 'Leave a Reply for %s', 'mrkapowski' ),
-			'cancel_reply_link'    => __( 'Cancel Reply', 'mrkapowski' ),
-			'label_submit'         => __( 'Submit Comment', 'mrkapowski' ),
-			'must_log_in'          => '<p class="form-text must-log-in text-muted">' . $login_link . '</p>',
-			'logged_in_as'         => '<p class="form-text text-muted logged-in-as">' . $loggedin_link . '</p>',
-			'comment_notes_before' => $comment_notes_before,
-			'comment_notes_after'  => $comment_notes_after,
-			'fields'               => apply_filters(
-				'comment_form_default_fields',
-				array(
-					'author'  =>
-						'<div class="form-row"><div class="comment-form-author form-group col-md-4"><label for="author" class="sr-only">' . __( 'Name', 'mrkapowski' ) . '</label>' . ( $req ? '' : '' ) .
-						'<input id="author" class="form-control" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
-						'"' . $aria_req . ' placeholder=' . __( 'Name', 'mrkapowski' ) . '></div>',
-					'email'   =>
-						'<div class="comment-form-email form-group col-md-4"><label for="email" class="sr-only">' . __( 'Email', 'mrkapowski' ) . '</label>' . ( $req ? '' : '' ) .
-						'<input id="email" class="form-control" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) .
-						'"' . $aria_req . ' placeholder=' . __( 'Email', 'mrkapowski' ) . '></div>',
-					'url'     =>
-						'<div class="comment-form-url form-group col-md-4"><label for="url" class="sr-only">' . __( 'Website', 'mrkapowski' ) . '</label>' .
-						'<input id="url" class="form-control" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) .
-						'" placeholder=' . __( 'Website', 'mrkapowski' ) . '></div></div>',
-					'cookies' => '<div class="comment-form-consent form-group form-check col-md-12"><input class="form-check-input" id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"' . $consent . ' />' .
-					'<label for="wp-comment-cookies-consent" class="form-check-label">' . __( 'Save my name, email, and website in this browser for the next time I comment.', 'mrkapowski' ) . '</label></div>',
-				)
-			),
-		);
-
-		return $args;
-	}
-}
-
-/**
- * Recreates the comment form textarea HTML for reinclusion in comment form
- */
-if ( ! function_exists( 'mrkapowski_add_textarea' ) ) {
-	function mrkapowski_add_textarea() {
-		$arg['comment_field'] = '<div class="form-row"><div class="form-group col-md-12 comment-form-comment"><label for="comment">' . __( 'Comment', 'mrkapowski' ) . '</label>' .
-		'<textarea class="form-control" id="comment" name="comment" cols="60" rows="6" aria-required="true"></textarea></div></div>';
-		return $arg;
-	}
-}
 /**
  * Adds the reformatted textarea into the comment form
  */
 add_action( 'comment_form_defaults', 'mrkapowski_add_textarea' );
 
-/**
- * Adds additional classes to the submit button on the comment form
- */
-if ( ! function_exists( 'mrkapowski_submit_button' ) ) {
-	function mrkapowski_submit_button( $submit_field ) {
-		$changed_submit = str_replace( 'name="submit" type="submit" id="submit"', 'name="submit" type="submit" id="submit" class="btn btn-primary"', $submit_field );
-		return $changed_submit;
-	}
-}
 /**
  * Filters the comment form, to add our customised submit button
  */
@@ -472,11 +227,16 @@ add_filter( 'post_thumbnail_html', 'mrkapowski_remove_image_dimensions', 10 );
 add_filter( 'image_send_to_editor', 'mrkapowski_remove_image_dimensions', 10 );
 
 /**
- * Enable features from Soil when plugin is activated
- * @link https://roots.io/plugins/soil/
+ * Enhance the theme by hooking into WordPress.
  */
-add_theme_support( 'soil-clean-up' );
-add_theme_support( 'soil-jquery-cdn' );
-add_theme_support( 'soil-js-to-footer' );
-add_theme_support( 'soil-nav-walker' );
-add_theme_support( 'soil-nice-search' );
+require get_template_directory() . '/inc/template-functions.php';
+
+/**
+ * SVG Icons related functions.
+ */
+require get_template_directory() . '/inc/icon-functions.php';
+
+/**
+ * Custom template tags for the theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';

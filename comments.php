@@ -17,21 +17,18 @@ if ( post_password_required() ) {
 ?>
 <footer>
 	<header>
-		<h5 class="comments-title">
+		<h4 class="comments-title">
 			<?php
 			printf(
 				// translators:
-				esc_html( _nx( '%s Reply', '%s Replies', get_comments_number(), 'comments title', 'mrkapowski' ) ),
+				esc_html( _nx( '%s Responses', '%s Responses', get_comments_number(), 'comments title', 'mrkapowski' ) ),
 				esc_html( number_format_i18n( get_comments_number() ) ),
 				'<span>' . esc_html( get_the_title() ) . '</span>'
 			);
 			?>
-		</h5>
+		</h4>
 	</header>
 	<section>
-		<?php if ( ! comments_open() && get_comments_number() ) : ?>
-		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'mrkapowski' ); ?></p>
-		<?php endif; ?>
 		<?php if ( have_comments() ) : ?>
 		<ol class="comment-list">
 			<?php
@@ -43,6 +40,11 @@ if ( post_password_required() ) {
 			?>
 		</ol><!-- .comment-list -->
 		<hr>
+			<?php do_action( 'comment_mentions' ); ?>
+		<hr>
+		<?php endif; ?>
+		<?php if ( ! comments_open() && get_comments_number() ) : ?>
+		<p class="no-comments"><?php esc_html_e( 'Responses are closed.', 'mrkapowski' ); ?></p>
 		<?php endif; ?>
 	</section>
 	<footer>
