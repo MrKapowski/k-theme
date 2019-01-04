@@ -44,17 +44,6 @@ if ( post_password_required() ) {
 			?>
 		</ol><!-- .comment-list -->
 		<hr>
-		<ol class="comment-list">
-			<?php
-				wp_list_comments(
-					array(
-						'type'     => 'webmention',
-						'callback' => 'mrkapowski_comment',
-					)
-				);
-			?>
-		</ol><!-- .comment-list -->
-		<hr>
 		<?php endif; ?>
 	</section>
 	<footer>
