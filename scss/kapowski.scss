@@ -1,0 +1,41 @@
+/*!
+Theme Name: K
+Theme URI: https://mrkapowski.com/
+Author: Chris McLeod
+Author URI: https://mrkapowski.com/
+Description: Custom Theme for My Blog
+Version: 0.8.2
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: mrkapowski
+Tags: two-columns, right-sidebar, microformats, blog, simple, minimalist
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+// Variables
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+// Color system
+// stylelint-disable-next-line scss/dollar-variable-default
+$magenta: #ff1538;
+$primary: $magenta;
+$compliment: #ff6438;
+
+$colors: (
+    "magenta":    $magenta
+);
+$theme-colors: (
+    "primary":    $magenta,
+    "compliment": $compliment
+);
+$colors: (
+    "primary":    $magenta,
+    "compliment": $compliment
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import "overrides"
