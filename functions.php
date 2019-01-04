@@ -251,16 +251,22 @@ if ( ! function_exists( 'mrkapowski_comment_count_mentions' ) ) {
 
 /**
  * Custom Comment Walker template.
+ * @since K 0.8.4
  */
 require get_template_directory() . '/classes/class-mrkapowski-walker-comment.php';
 
 /**
  * Registers the custom walker for this theme
+ * @since K 0.8.4
  */
 function mrkapowski_filter_comment_args( $args ) {
 	$args['walker'] = new MrKapowski_Walker_Comment();
 	return $args;
 }
+/**
+ * Filters wp_list_comments $args to apply our Walker_Comment
+ * @since K 0.8.4
+ */
 add_filter( 'wp_list_comments_args', 'mrkapowski_filter_comment_args', 12 );
 
 /**
