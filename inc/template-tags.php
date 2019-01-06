@@ -52,6 +52,7 @@ if ( ! function_exists( 'mrkapowski_post_type_icon' ) ) {
 			$map    = array(
 				'article'   => 'file-alt',
 				'standard'  => 'file-alt',
+				'post'      => 'file-alt',
 				'note'      => 'sticky-note',
 				'aside'     => 'sticky-note',
 				'status'    => 'comment',
