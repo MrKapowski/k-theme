@@ -35,6 +35,8 @@ function mrkapowski_get_svg( $args = array() ) {
 		'title'    => '',
 		'desc'     => '',
 		'fallback' => false,
+		'set'      => 'brands',
+		'classes'  => 'icon icon-2x',
 	);
 
 	// Parse args.
@@ -68,7 +70,7 @@ function mrkapowski_get_svg( $args = array() ) {
 	}
 
 	// Begin SVG markup.
-	$svg = '<svg class="icon icon-2x icon-' . esc_attr( $args['icon'] ) . '"' . $aria_hidden . $aria_labelledby . ' role="img">';
+	$svg = '<svg class=" ' . esc_attr( $args['classes'] ) . ' icon-' . esc_attr( $args['icon'] ) . '"' . $aria_hidden . $aria_labelledby . ' role="img">';
 
 	// Display the title.
 	if ( $args['title'] ) {
@@ -87,7 +89,7 @@ function mrkapowski_get_svg( $args = array() ) {
 	 *
 	 * See https://core.trac.wordpress.org/ticket/38387.
 	 */
-	$svg .= ' <use href="' . get_template_directory_uri() . '/assets/img/brands.svg#' . esc_html( $args['icon'] ) . '" xlink:href="' . get_template_directory_uri() . '/assets/img/brands.svg#' . esc_html( $args['icon'] ) . '"></use> ';
+	$svg .= ' <use href="' . get_template_directory_uri() . '/assets/img/' . $args['set'] . '.svg#' . esc_html( $args['icon'] ) . '" xlink:href="' . get_template_directory_uri() . '/assets/img/' . $args['set'] . '.svg#' . esc_html( $args['icon'] ) . '"></use> ';
 
 	// Add markup to use as a fallback for browsers that do not support SVGs.
 	if ( $args['fallback'] ) {

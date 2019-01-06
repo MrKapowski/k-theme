@@ -32,8 +32,9 @@
 					<ul class="list-unstyled sitemap">
 						<?php endif; ?>
 						<li><a href="<?php the_permalink(); ?>">
+						<?php echo mrkapowski_post_type_icon(); /* phpcs:ignore */ ?>
 						<?php if ( ! get_the_title() ) : ?>
-							<?php the_time( 'g:i a' ); ?>
+							<?php echo mrkapowski_post_type_icon(); /* phpcs:ignore */ ?> at <?php the_time( 'g:i a' ); ?>
 						<?php else : ?>
 							<?php the_title(); ?>
 						<?php endif; ?></a>  | <small content="<?php the_date_xml(); ?>"><a href="<?php the_permalink(); ?>" rel="permalink" class="text-muted"><?php echo get_the_date( 'F j, Y' ); ?></a></small></li>
