@@ -44,6 +44,11 @@ function mrkapowski_deregister_styles() {
 	wp_deregister_style( 'gravatar-profile-widget' ); // Gravatar Widget
 	wp_deregister_style( 'widget-grid-and-list' ); // Top Posts widget
 	wp_deregister_style( 'jetpack-widgets' ); // Widgets
+	// Other plugins
+	wp_deregister_style( 'kind' ); // Post-Kinds
+	wp_deregister_style( 'indieweb' ); // IndieWeb
+	wp_deregister_style( 'semantic-linkbacks-css' ); // Semantic Linkbacks
+	wp_deregister_style( 'syndication-style' ); // Syndication Links
 }
 /**
  * Removes the deregistered Jetpack stylesheets

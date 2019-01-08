@@ -25,14 +25,14 @@ function mrkapowski_do_svg( $args = array(), $echo = true ) {
  * @since K 0.8.4
  */
 if ( ! function_exists( 'mrkapowski_post_type' ) ) {
-	function mrkapowski_post_type( $icon = false ) {
+	function mrkapowski_post_type() {
 		// Check if we have a Post Kind:
 		if ( function_exists( 'has_post_kind' ) && has_post_kind() ) {
 			$output = get_post_kind();
 		} else {
 			$output = get_post_type();
 		}
-		return $output;
+		echo esc_html( $output );
 	}
 }
 /**
@@ -42,6 +42,7 @@ if ( ! function_exists( 'mrkapowski_post_type' ) ) {
  */
 if ( ! function_exists( 'mrkapowski_post_type_icon' ) ) {
 	function mrkapowski_post_type_icon() {
+		$output = '';
 		// Check if we have a Post Kind:
 		if ( function_exists( 'has_post_kind' ) && has_post_kind() ) {
 			$type = get_post_kind();
@@ -83,6 +84,25 @@ if ( ! function_exists( 'mrkapowski_post_type_icon' ) ) {
 			);
 			$output = mrkapowski_get_svg( $args, false );
 		}
-		return $output;
+		echo wp_kses(
+			$output,
+			array(
+				'svg'   => array(
+					'class'           => array(),
+					'aria-hidden'     => array(),
+					'aria-labelledby' => array(),
+					'role'            => array(),
+				),
+				'span'  => array(
+					'class' => array(),
+				),
+				'use'   => array(
+					'href'       => array(),
+					'xlink:href' => array(),
+				),
+				'title' => array(),
+				'desc'  => array(),
+			)
+		);
 	}
 }

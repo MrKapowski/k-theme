@@ -7,7 +7,7 @@
 							<small>
 								<time class="dt-published" itemprop="datePublished" datetime="<?php echo esc_attr( get_the_time( 'c' ) ); ?>">
 									<a href="<?php the_permalink(); ?>" class="u-url u-uid" itemprop="mainEntityOfPage" rel="permalink">
-									<?php echo mrkapowski_post_type_icon(); /* phpcs:ignore */ ?> <?php echo mrkapowski_post_type(); /* phpcs:ignore */ ?> at <?php the_time( 'g:i a' ); ?>, <?php echo esc_html( get_the_date( 'F j, Y' ) ); ?> 
+									<?php mrkapowski_post_type_icon(); ?> <?php mrkapowski_post_type(); ?> at <?php the_time( 'g:i a' ); ?>, <?php echo esc_html( get_the_date( 'F j, Y' ) ); ?> 
 									</a>
 								</time>
 							</small>
@@ -17,7 +17,7 @@
 								<time class="dt-published" itemprop="datePublished" datetime="<?php echo esc_attr( get_the_time( 'c' ) ); ?>">
 									<a href="<?php the_permalink(); ?>" class="u-url u-uid" itemprop="mainEntityOfPage" rel="permalink">
 										<span itemprop="headline" class="entry-title">
-										<?php echo mrkapowski_post_type_icon(); /* phpcs:ignore */ ?> <?php echo mrkapowski_post_type(); /* phpcs:ignore */ ?> at <?php the_time( 'g:i a' ); ?>, <?php echo esc_html( get_the_date( 'F j, Y' ) ); ?>
+										<?php mrkapowski_post_type_icon(); ?> <?php mrkapowski_post_type(); ?> at <?php the_time( 'g:i a' ); ?>, <?php echo esc_html( get_the_date( 'F j, Y' ) ); ?>
 										</span>
 									</a>
 								</time>
@@ -44,9 +44,9 @@
 						</header>
 						<div itemprop="articleBody" class="e-content">
 							<?php the_content(); ?>
-							<p><a href="<?php the_permalink(); ?>" rel="permalink" itemprop="mainEntityOfPage" class="u-url" >
+							<!-- <p><a href="<?php the_permalink(); ?>" rel="permalink" itemprop="mainEntityOfPage" class="u-url text-muted" >
 								<svg class="icon-bookmark"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( 'assets/img/solid.svg#bookmark' ) ); ?>"></use></svg>
-							</a></p>
+							</a></p> -->
 						</div>
 						<hr>
 					</article>
