@@ -61,14 +61,22 @@ add_action( 'wp_print_styles', 'mrkapowski_deregister_styles', 100 );
 // TODO: make this a customisable option
 add_filter( 'jetpack_honor_dnt_header_for_stats', '__return_true' );
 
+/**
+ * Provides various overrides to functionality provided by the Semantic Linkbacks Plugin
+ * @since K 0.8.4
+ */
 function mrkapowski_semantic_linkbacks() {
 	remove_action( 'comment_form_before', array( 'Linkbacks_Handler', 'show_mentions' ) );
 	remove_action( 'comment_form_comments_closed', array( 'Linkbacks_Handler', 'show_mentions' ) );
 	remove_filter( 'wp_list_comments_args', array( 'Linkbacks_Handler', 'filter_comment_args' ) );
+	remove_filter( 'get_comment_text', array( 'Linkbacks_Handler', 'comment_text_add_cite' ), 11 );
 
-	add_action( 'comment_mentions', array( 'Linkbacks_Handler', 'show_mentions' ) );
+	add_action( 'comment_mentions', 'mrkapowski_show_mentions' );
 }
-
+/**
+ * Actions our Semantic Linkback overrides
+ * @since K 0.8.4
+ */
 add_action( 'wp_loaded', 'mrkapowski_semantic_linkbacks' );
 
 /**
@@ -81,3 +89,23 @@ function mrkapowski_webmention_form() {
  * Filters the webmention form, so our custom template is applied
  */
 add_filter( 'webmention_comment_form', 'mrkapowski_webmention_form' );
+
+/**
+ * Loads custom template for Semantic Linkbacks mentions.
+ * @since K 0.8.4
+ */
+function mrkapowski_show_mentions() {
+	get_template_part( 'template-parts/webmentions' );
+}
+
+/**
+ * Overrides Post-Kinds Author output
+ * @since K 0.8.4
+ */
+function mrkapowski_kind_hcard( $string, $author, $args ) {
+	return sprintf( '<a class="h-card p-author" rel="external" href="%1s">%2s</a>', $author['url'], $author['name'] );
+}
+/**
+ * Filters the webmention form, so our custom template is applied
+ */
+add_filter( 'get_hcard', 'mrkapowski_kind_hcard', 10, 3 );

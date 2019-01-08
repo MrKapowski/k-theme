@@ -7,8 +7,8 @@ article header a:visited{text-decoration:none}
 .icon-2x{height:1.5rem;width:1.5rem}.icon-lg{height:1.33333333rem;width:1.33333333rem}
 @media(min-width:768px){#logo{transition:transform .1s ease-in-out}#logo:hover{transform:scale(1.2)}}
 .comments-area{font-size:90%}
-.comment-list{list-style-type:none;margin:0;padding:0}
-.comment-list li{margin:1.25rem 0}
+.comment-list, .mention-list{list-style-type:none;margin:0;padding:0}
+.comment-list li, .mention-list li{margin:1.25rem 0}
 .comments-area{font-size:90%}
 .comment-author a{color:$gray-600!important}
 .comment-author a:focus,
@@ -26,3 +26,8 @@ hr.grad{border-top:5px solid;border-image:linear-gradient(to right,$compliment,$
 #menu-primary .menu-item {margin-right: 0.75rem;font-size: 1.25rem;}
 #menu-primary .active a { color: $gray-800; }#menu-social a {margin: 0 0.25rem;color: $gray-600;}
 article blockquote{ margin: 1rem 0 1rem 2rem; padding-left: 1rem; font-size: 1.5rem; font-style: italic; line-height: 1.6; border-left: 4px solid $gray-600;}
+.mention-list .hide-name {
+	display: none;
+}
+.mention-list { display: flex; flex-wrap: wrap; }
+.mention-list li { margin: 2px; }

@@ -39,7 +39,6 @@ if ( post_password_required() ) {
 				);
 			?>
 		</ol><!-- .comment-list -->
-		<hr>
 			<?php do_action( 'comment_mentions' ); ?>
 		<hr>
 		<?php endif; ?>
