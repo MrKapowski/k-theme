@@ -138,7 +138,7 @@ add_filter( 'post_thumbnail_html', 'mrkapowski_remove_image_dimensions', 10 );
  */
 add_filter( 'image_send_to_editor', 'mrkapowski_remove_image_dimensions', 10 );
 /**
- * Filter images in the editor, to apply our customisations
+ * Filter images in the content, to apply our customisations
  */
 add_filter( 'the_content', 'mrkapowski_remove_image_dimensions', 30 );
 
