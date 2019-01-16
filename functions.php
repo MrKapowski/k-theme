@@ -124,35 +124,6 @@ function mrkapowski_sidebar() {
 add_action( 'widgets_init', 'mrkapowski_sidebar' );
 
 /**
- * Add useful extra classes to images, for layout and MF2
- */
-function mrkapowski_add_image_classes( $class ) {
-	$classes = array( 'mw-100', 'u-photo' );
-	$class  .= ' ';
-	$class  .= implode( ' ', $classes );
-	return $class;
-}
-/**
- * Remove width and height from editor images, for responsiveness
- */
-function mrkapowski_remove_image_dimensions( $html ) {
-	$html = preg_replace( '/( width|height )=\"\d*\"\s/', '', $html );
-	return $html;
-}
-/**
- * Filter inserted images, to apply our customisations
- */
-add_filter( 'get_image_tag_class', 'mrkapowski_add_image_classes' );
-/**
- * Filter thumbnails, to apply our customisations
- */
-add_filter( 'post_thumbnail_html', 'mrkapowski_remove_image_dimensions', 10 );
-/**
- * Filter images in the editor, to apply our customisations
- */
-add_filter( 'image_send_to_editor', 'mrkapowski_remove_image_dimensions', 10 );
-
-/**
  * Custom Comment Walker template.
  * @since K 0.8.4
  */

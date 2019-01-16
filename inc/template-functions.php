@@ -108,3 +108,44 @@ if ( ! function_exists( 'mrkapowski_submit_button' ) ) {
 		return $changed_submit;
 	}
 }
+
+/**
+ * Add useful extra classes to images, for layout and MF2
+ */
+function mrkapowski_add_image_classes( $class ) {
+	$classes = array( 'mw-100', 'u-photo' );
+	$class  .= ' ';
+	$class  .= implode( ' ', $classes );
+	return $class;
+}
+/**
+ * Remove width and height from editor images, for responsiveness
+ */
+function mrkapowski_remove_image_dimensions( $html ) {
+	$html = preg_replace( '/(height|width)=\"\d*\"\s?/', '', $html );
+	return $html;
+}
+/**
+ * Filter inserted images, to apply our customisations
+ */
+add_filter( 'get_image_tag_class', 'mrkapowski_add_image_classes' );
+/**
+ * Filter thumbnails, to apply our customisations
+ */
+add_filter( 'post_thumbnail_html', 'mrkapowski_remove_image_dimensions', 10 );
+/**
+ * Filter images in the editor, to apply our customisations
+ */
+add_filter( 'image_send_to_editor', 'mrkapowski_remove_image_dimensions', 10 );
+/**
+ * Filter images in the editor, to apply our customisations
+ */
+add_filter( 'the_content', 'mrkapowski_remove_image_dimensions', 30 );
+
+function mrkapowski_attachment_attr( $attr, $attachment, $size ) {
+	if ( isset( $attr['class'] ) ) {
+		$attr['class'] .= ' mw-100';
+	}
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'mrkapowski_attachment_attr', 10, 3 );
