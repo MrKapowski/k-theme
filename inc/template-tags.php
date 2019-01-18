@@ -80,7 +80,7 @@ if ( ! function_exists( 'mrkapowski_post_type_icon' ) ) {
 			$args   = array(
 				'icon'    => $map[ strtolower( $type ) ],
 				'set'     => 'solid',
-				'classes' => '',
+				'classes' => 'align-baseline',
 			);
 			$output = mrkapowski_get_svg( $args, false );
 		}

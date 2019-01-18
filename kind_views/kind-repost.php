@@ -13,8 +13,7 @@ $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="response u-repost-of h-cite">
-	<header>
+<section class="response u-repost-of h-cite post-kind post-kind-repost">
 	<?php
 	echo Kind_Taxonomy::get_before_kind( 'repost' );
 	if ( ! $embed ) {
@@ -22,9 +21,9 @@ $embed  = self::get_embed( $url );
 			$cite['name'] = self::get_post_type_string( $url );
 		}
 		if ( isset( $url ) ) {
-			echo sprintf( 'Reposting: <a href="%1s" class="p-name u-url">%2s</a>', $url, $cite['name'] );
+			echo sprintf( '<p class="lead">Reposting: <a href="%1s" class="p-name u-url">%2s</a></p>', $url, $cite['name'] );
 		} else {
-			echo sprintf( '<span class="p-name">%1s</span>', $cite['name'] );
+			echo sprintf( '<p class="lead"><span class="p-name">%1s</span></p>', $cite['name'] );
 		}
 	}
 	?>
@@ -58,6 +57,7 @@ $embed  = self::get_embed( $url );
 		<?php endif; ?>
 	</blockquote>
 	<?php endif; ?>
+	<hr class="text-center w-25">
 </section>
 
 <?php

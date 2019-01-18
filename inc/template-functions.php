@@ -111,7 +111,7 @@ if ( ! function_exists( 'mrkapowski_submit_button' ) ) {
 
 if ( ! function_exists( 'mrkapowski_header_class' ) ) {
 	function mrkapowski_header_class() {
-		if ( ( ! has_post_format() ) || has_post_kind( 'article' ) ) {
+		if ( ( ! has_post_format() ) || has_post_kind( 'article' ) || is_single() ) {
 			echo esc_attr( 'h1' );
 		} else {
 			echo esc_attr( 'h3' );

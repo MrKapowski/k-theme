@@ -13,8 +13,7 @@ $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="post-kind-quote">
-	<hr class="text-center w-25">
+<section class="post-kind post-kind-quote">
 	<?php
 	echo Kind_Taxonomy::get_before_kind( 'quote' );
 	if ( ! $embed ) {
@@ -24,7 +23,7 @@ $embed  = self::get_embed( $url );
 		if ( isset( $url ) ) {
 			echo sprintf( '<p class="lead">Quoting: <cite class="u-quotation-of h-cite"><a href="%1s" class="p-name u-url">%2s</a></cite></p>', $url, $cite['name'] );
 		} else {
-			echo sprintf( '<span class="p-name">%1s</span>', $cite['name'] );
+			echo sprintf( '<p class="lead">Quoting: <span class="p-name">%1s</span></p>', $cite['name'] );
 		}
 	}
 	?>

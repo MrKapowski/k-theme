@@ -17,8 +17,7 @@ $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="response u-in-reply-to h-cite">
-	<hr class="text-center w-25">
+<section class="response u-in-reply-to h-cite post-kind post-kind-reply">
 	<?php
 	echo Kind_Taxonomy::get_before_kind( 'reply' );
 	if ( ! $embed ) {

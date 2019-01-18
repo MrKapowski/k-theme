@@ -13,8 +13,7 @@ $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="u-bookmark-of h-cite post-kind-bookmark">
-	<hr class="text-center w-25">
+<section class="u-bookmark-of h-cite post-kind post-kind-bookmark">
 	<!-- <header> -->
 	<?php
 	echo Kind_Taxonomy::get_before_kind( 'bookmark' );

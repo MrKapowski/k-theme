@@ -2,10 +2,10 @@
 						<?php get_template_part( 'template-parts/posts/post-header', get_post_format() ); ?>
 						<div itemprop="articleBody" class="e-content">
 							<?php the_content(); ?>
-							<!-- <p><a href="<?php the_permalink(); ?>" rel="permalink" itemprop="mainEntityOfPage" class="u-url text-muted" >
-								<svg class="icon-bookmark"><use xlink:href="<?php echo esc_attr( get_theme_file_uri( 'assets/img/solid.svg#bookmark' ) ); ?>"></use></svg>
-							</a></p> -->
 						</div>
+						<?php if ( '' !== $post->post_content ) : ?>
+						<hr class="text-center w-25">
+						<?php endif; ?>
 						<!-- <hr> -->
 					</article>
 					<?php if ( is_single() ) : ?>
