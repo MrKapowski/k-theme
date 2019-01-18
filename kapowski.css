@@ -4,7 +4,7 @@ Theme URI: https://mrkapowski.com/
 Author: Chris McLeod
 Author URI: https://mrkapowski.com/
 Description: Custom Theme for My Blog
-Version: 0.8.3.3
+Version: 0.8.3.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mrkapowski
@@ -107,6 +107,7 @@ abbr[data-original-title] {
   text-decoration: underline dotted;
   cursor: help;
   border-bottom: 0;
+  -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
 }
 
@@ -9604,6 +9605,18 @@ article header a:visited {
   text-decoration: none;
 }
 
+article header {
+  margin: 1rem 0 1.5rem;
+}
+
+article header .metabox {
+  margin: 0.5rem 0;
+}
+
+article div#syndication-links {
+  display: none;
+}
+
 [class^=icon-], [class*=" icon-"] {
   height: 1rem;
   width: 1rem;
@@ -9737,15 +9750,6 @@ hr.grad {
   color: #6c757d;
 }
 
-article blockquote {
-  margin: 1rem 0 1rem 2rem;
-  padding-left: 1rem;
-  font-size: 1.5rem;
-  font-style: italic;
-  line-height: 1.6;
-  border-left: 4px solid #6c757d;
-}
-
 .mention-list .hide-name {
   display: none;
 }
@@ -9756,6 +9760,16 @@ article blockquote {
 }
 
 .mention-list li {
-  margin: 0 0.5rem 0 0;
+  margin: 2px;
+}
+
+.icon-tag {
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+h2.h1 svg {
+  height: 1.8rem;
+  width: 1.8rem;
 }
 /*# sourceMappingURL=kapowski.css.map */

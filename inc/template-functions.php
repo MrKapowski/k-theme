@@ -109,11 +109,21 @@ if ( ! function_exists( 'mrkapowski_submit_button' ) ) {
 	}
 }
 
+if ( ! function_exists( 'mrkapowski_header_class' ) ) {
+	function mrkapowski_header_class() {
+		if ( ( ! has_post_format() ) || has_post_kind( 'article' ) ) {
+			echo esc_attr( 'h1' );
+		} else {
+			echo esc_attr( 'h3' );
+		}
+	}
+}
+
 /**
  * Add useful extra classes to images, for layout and MF2
  */
 function mrkapowski_add_image_classes( $class ) {
-	$classes = array( 'mw-100', 'u-photo' );
+	$classes = array( 'img-fluid', 'u-photo' );
 	$class  .= ' ';
 	$class  .= implode( ' ', $classes );
 	return $class;
@@ -144,7 +154,7 @@ add_filter( 'the_content', 'mrkapowski_remove_image_dimensions', 30 );
 
 function mrkapowski_attachment_attr( $attr, $attachment, $size ) {
 	if ( isset( $attr['class'] ) ) {
-		$attr['class'] .= ' mw-100';
+		$attr['class'] .= ' img-fluid';
 	}
 	return $attr;
 }
@@ -154,5 +164,3 @@ add_filter( 'wp_get_attachment_image_attributes', 'mrkapowski_attachment_attr', 
  * Re-enable the built-in Links manager
  */
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
-// Add Shortcode
-add_shortcode( 'links', 'wp_list_bookmarks' );

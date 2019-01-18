@@ -1,51 +1,59 @@
 <?php
 /*
- * Like Template
+ * Reply Template
  *
  */
 
 if ( ! $cite ) {
 	return;
 }
-$author = Kind_View::get_hcard( ifset( $cite['author'] ) );
 $url    = ifset( $cite['url'], '' );
+if ( ( ! isset( $cite['author']['url'] ) ) && isset( $url ) ) {
+	$cite['author']['url'] = $url;
+}
+$author = Kind_View::get_hcard( ifset( $cite['author'] ) );
+
 $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="response u-reply-of h-cite">
-<header>
-<?php
-echo Kind_Taxonomy::get_before_kind( 'reply' );
-if ( ! $embed ) {
-	if ( ! array_key_exists( 'name', $cite ) ) {
-		$cite['name'] = self::get_post_type_string( $url );
+<section class="response u-in-reply-to h-cite">
+	<hr class="text-center w-25">
+	<?php
+	echo Kind_Taxonomy::get_before_kind( 'reply' );
+	if ( ! $embed ) {
+		if ( ! array_key_exists( 'name', $cite ) ) {
+			$cite['name'] = self::get_post_type_string( $url );
+		}
+		if ( isset( $url ) ) {
+			echo sprintf( '<p class="lead">Reply To: <a href="%1s" class="p-name u-url">%2s</a></p>', $url, $cite['name'] );
+		} else {
+			echo sprintf( '<span class="p-name">%1s</span>', $cite['name'] );
+		}
 	}
-	if ( isset( $url ) ) {
-		echo sprintf( '<a href="%1s" class="p-name u-url">%2s</a>', $url, $cite['name'] );
-	} else {
-		echo sprintf( '<span class="p-name">%1s</span>', $cite['name'] );
-	}
-	if ( $author ) {
-		echo ' ' . __( 'by', 'indieweb-post-kinds' ) . ' ' . $author;
-	}
-	if ( array_key_exists( 'publication', $cite ) ) {
-		echo sprintf( ' <em>(<span class="p-publication">%1s</span>)</em>', $cite['publication'] );
-	}
-}
-?>
-</header>
-<?php
-if ( $cite ) {
-	if ( $embed ) {
-		echo sprintf( '<blockquote class="e-summary">%1s</blockquote>', $embed );
-	} elseif ( array_key_exists( 'summary', $cite ) ) {
-		echo sprintf( '<blockquote class="e-summary">%1s</blockquote>', $cite['summary'] );
-	}
-}
-
-// Close Response
-?>
+	?>
+	<?php if ( $cite && ( ( array_key_exists( 'summary', $cite ) && '' !== $cite['summary'] ) || isset( $embed ) ) ) : ?>
+	<blockquote class="e-summary blockquote">
+		<?php
+		if ( $embed ) {
+			echo $embed;
+		} elseif ( array_key_exists( 'summary', $cite ) ) {
+			echo wpautop( wptexturize( '"' . $cite['summary'] . '"' ) );
+		}
+		?>
+		<?php if ( $author ) : ?>
+		<footer class="blockquote-footer"><cite class="u-quotation-of h-cite">
+			<?php echo $author; ?>
+			<?php
+			if ( array_key_exists( 'publication', $cite ) ) {
+				echo sprintf( ' <em>(<span class="p-publication">%1s</span>)</em>', $cite['publication'] );
+			}
+			?>
+		</cite></footer>
+		<?php endif; ?>
+	</blockquote>
+	<?php endif; ?>
+	<hr class="text-center w-25">
 </section>
 
 <?php

@@ -3,6 +3,9 @@ article header a{text-decoration:none;color:$gray-700}
 article header a:hover{text-decoration:none;color:$primary}
 article header a:link{text-decoration:none}
 article header a:visited{text-decoration:none}
+article header { margin: 1rem 0 1.5rem; }
+article header .metabox { margin: 0.5rem 0; }
+article div#syndication-links { display: none; }
 [class^=icon-],[class*=" icon-"]{height:1rem;width:1rem;display:inline-block;fill:currentColor}
 .icon-2x{height:1.5rem;width:1.5rem}.icon-lg{height:1.33333333rem;width:1.33333333rem}
 @media(min-width:768px){#logo{transition:transform .1s ease-in-out}#logo:hover{transform:scale(1.2)}}
@@ -25,9 +28,14 @@ li.comment div.comment{flex:1;display:flex;justify-content:flex-start;flex-direc
 hr.grad{border-top:5px solid;border-image:linear-gradient(to right,$compliment,$primary) 5;margin:0;padding:0}
 #menu-primary .menu-item {margin-right: 0.75rem;font-size: 1.25rem;}
 #menu-primary .active a { color: $gray-800; }#menu-social a {margin: 0 0.25rem;color: $gray-600;}
-article blockquote{ margin: 1rem 0 1rem 2rem; padding-left: 1rem; font-size: 1.5rem; font-style: italic; line-height: 1.6; border-left: 4px solid $gray-600;}
+// article blockquote{ margin: 1rem 0 1rem 2rem; padding-left: 1rem; font-size: 1.5rem; font-style: italic; line-height: 1.6; border-left: 4px solid $gray-600;}
 .mention-list .hide-name {
 	display: none;
 }
 .mention-list { display: flex; flex-wrap: wrap; }
 .mention-list li { margin: 2px; }
+.icon-tag { height: 0.5rem; width: 0.5rem; }
+h2.h1 svg {
+    height: 1.8rem;
+    width: 1.8rem;
+}

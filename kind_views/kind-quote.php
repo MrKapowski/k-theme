@@ -1,6 +1,6 @@
 <?php
 /*
- * Bookmark Template
+ * Quote Template
  *
  */
 
@@ -13,25 +13,24 @@ $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="u-bookmark-of h-cite post-kind-bookmark">
+<section class="post-kind-quote">
 	<hr class="text-center w-25">
-	<!-- <header> -->
 	<?php
-	echo Kind_Taxonomy::get_before_kind( 'bookmark' );
+	echo Kind_Taxonomy::get_before_kind( 'quote' );
 	if ( ! $embed ) {
 		if ( ! array_key_exists( 'name', $cite ) ) {
 			$cite['name'] = self::get_post_type_string( $url );
 		}
 		if ( isset( $url ) ) {
-			echo sprintf( '<p class="lead">Bookmarked: <a href="%1s" class="p-name u-url">%2s</a></p>', $url, $cite['name'] );
+			echo sprintf( '<p class="lead">Quoting: <cite class="u-quotation-of h-cite"><a href="%1s" class="p-name u-url">%2s</a></cite></p>', $url, $cite['name'] );
 		} else {
-			echo sprintf( '<p class="lead"><span class="p-name">%1s</span></p>', $cite['name'] );
+			echo sprintf( '<span class="p-name">%1s</span>', $cite['name'] );
 		}
 	}
 	?>
-	<!-- </header> -->
 
-	<?php if ( $cite && ( ( array_key_exists( 'summary', $cite ) && '' !== $cite['summary'] ) || isset( $embed ) ) ) : ?>
+
+	<?php if ( $cite ) : ?>
 	<blockquote class="e-summary blockquote">
 		<?php
 		if ( $embed ) {
@@ -41,14 +40,16 @@ $embed  = self::get_embed( $url );
 		}
 		?>
 		<?php if ( $author ) : ?>
-		<footer class="blockquote-footer"><cite class="u-quotation-of h-cite">
-			<?php echo $author; ?>
-			<?php
-			if ( array_key_exists( 'publication', $cite ) ) {
-				echo sprintf( ' <em>(<span class="p-publication">%1s</span>)</em>', $cite['publication'] );
-			}
-			?>
-		</cite></footer>
+		<footer class="blockquote-footer">
+			<cite>
+				<?php echo $author; ?>
+				<?php
+				if ( array_key_exists( 'publication', $cite ) ) {
+					echo sprintf( ' <em>(<span class="p-publication">%1s</span>)</em>', $cite['publication'] );
+				}
+				?>
+			</cite>
+		</footer>
 		<?php endif; ?>
 		<?php if ( ( ! $author ) && array_key_exists( 'publication', $cite ) ) : ?>
 		<footer class="blockquote-footer"><cite>

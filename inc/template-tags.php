@@ -106,3 +106,28 @@ if ( ! function_exists( 'mrkapowski_post_type_icon' ) ) {
 		);
 	}
 }
+
+if ( ! function_exists( 'mrkapowski_the_tags' ) ) {
+	function mrkapowski_the_tags() {
+		$tags = get_the_tags();
+		$html = '';
+		if ( $tags ) {
+			$html = '<ul class="post_tags list-inline small">';
+			foreach ( $tags as $tag ) {
+				$tag_link = get_tag_link( $tag->term_id );
+
+				$html .= '<li class="list-inline-item">' . "<a href='{$tag_link}' title='{$tag->name} Tag' class='{$tag->slug} p-category'>";
+				$html .= mrkapowski_get_svg(
+					array(
+						'icon'    => 'tag',
+						'set'     => 'solid',
+						'classes' => 'icon',
+					)
+				);
+				$html .= " {$tag->name}</a></li>";
+			}
+			$html .= '</span>';
+		}
+		echo $html;
+	}
+}
