@@ -7,10 +7,10 @@
 					<?php /* TODO: this should be a custom widget */ ?>
 					<div class="card">
 						<div class="h-card vcard" itemprop="author" itemtype="http://schema.org/Person">
-							<img src="<?php echo esc_attr( get_theme_file_uri( '/assets/img/author.jpg' ) ); ?>" alt="author image" class="mw-100 card-image-top u-photo">
+							<img src="<?php echo esc_attr( get_theme_file_uri( '/assets/img/author.jpg' ) ); ?>" alt="author image" class="img-fluid card-image-top u-photo">
 							<div class="card-body">
 								<h5 class="p-name card-title" itemprop="name">
-									<a itemprop="url" href="<?php echo esc_attr( $user_info->url ); ?>" rel="me" class="u-url h5">
+									<a itemprop="url" href="<?php echo esc_attr( $user_info->url ); ?>" rel="me author" class="u-url h5">
 										<?php echo esc_attr( $user_info->display_name ); ?>
 									</a>
 								</h5>
