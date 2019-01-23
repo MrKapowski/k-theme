@@ -1,10 +1,13 @@
 <article itemscope itemtype="http://schema.org/BlogPosting" itemid="<?php the_permalink(); ?>" <?php post_class( array( 'h-entry', 'hentry' ) ); ?>>
+<?php if ( ! is_single() ) : ?>
+<hr class="text-center w-50">
+<?php endif; ?>
 						<?php get_template_part( 'template-parts/posts/post-header', get_post_format() ); ?>
 						<div itemprop="articleBody" class="e-content">
 							<?php the_content(); ?>
 						</div>
 						<?php if ( '' !== $post->post_content ) : ?>
-						<hr class="text-center w-25">
+						<hr class="text-center w-50">
 						<?php endif; ?>
 						<!-- <hr> -->
 					</article>

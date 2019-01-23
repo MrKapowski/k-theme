@@ -26,6 +26,7 @@ li.comment div.comment{flex:1;display:flex;justify-content:flex-start;flex-direc
 .h5,h5{font-size:1.25rem}
 .h6,h6{font-size:1rem}
 hr.grad{border-top:5px solid;border-image:linear-gradient(to right,$compliment,$primary) 5;margin:0;padding:0}
+article hr.grad { margin: 1rem auto; }
 #menu-primary .menu-item {margin-right: 0.75rem;font-size: 1.25rem;}
 #menu-primary .active a { color: $gray-800; }#menu-social a {margin: 0 0.25rem;color: $gray-600;}
 // article blockquote{ margin: 1rem 0 1rem 2rem; padding-left: 1rem; font-size: 1.5rem; font-style: italic; line-height: 1.6; border-left: 4px solid $gray-600;}

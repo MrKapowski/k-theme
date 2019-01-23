@@ -31,7 +31,7 @@ $embed  = self::get_embed( $url );
 		}
 	}
 	?>
-	<?php if ( $cite && ( ( array_key_exists( 'summary', $cite ) && '' !== $cite['summary'] ) || isset( $embed ) ) ) : ?>
+	<?php if ( ( array_key_exists( 'summary', $cite ) && '' !== trim( $cite['summary'] ) ) || isset( $embed ) ) : ?>
 	<blockquote class="e-summary blockquote">
 		<?php
 		if ( $embed ) {
