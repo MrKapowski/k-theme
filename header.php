@@ -58,4 +58,4 @@
 
 			<div class="row"><!-- Content Grid Row -->
 			<?php get_sidebar(); ?>
-				<main id="content" class="col-lg-9 flex-md-last order-first h-feed"><!-- Main Content Area -->
+				<main id="content" class="col-lg-9 flex-md-last order-first h-feed hfeed"><!-- Main Content Area -->

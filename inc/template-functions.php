@@ -164,3 +164,14 @@ add_filter( 'wp_get_attachment_image_attributes', 'mrkapowski_attachment_attr', 
  * Re-enable the built-in Links manager
  */
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
+/**
+ * Get Post-Kind metadata
+ */
+function mrkapowski_post_kind_metadata( $post ) {
+	$mf2_post = new MF2_Post( $post );
+	$kind     = $mf2_post->get( 'kind', true );
+	$info     = Kind_Taxonomy::get_kind_info( $kind, 'property' );
+	$cite     = $mf2_post->fetch( $info );
+	return $cite;
+}

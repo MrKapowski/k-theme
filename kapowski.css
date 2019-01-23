@@ -4,7 +4,7 @@ Theme URI: https://mrkapowski.com/
 Author: Chris McLeod
 Author URI: https://mrkapowski.com/
 Description: Custom Theme for My Blog
-Version: 0.8.3.10
+Version: 0.8.3.12
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: mrkapowski
@@ -9781,5 +9781,14 @@ h2.h3 svg {
 .post-kind {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
+}
+
+article.post-activity {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+article.post-activity .p-summary {
+  margin: 0;
 }
 /*# sourceMappingURL=kapowski.css.map */

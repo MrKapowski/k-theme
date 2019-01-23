@@ -13,7 +13,7 @@ $embed  = Kind_View::get_embed( $url );
 $verb =  Kind_Taxonomy::get_kind_info( get_post_kind_slug(), 'verb' )
 ?>
 
-<section class="response u-like-of h-cite post-kind post-kind-like">
+<section class="response h-cite post-kind post-kind-like">
 	<?php
 	echo Kind_Taxonomy::get_before_kind( 'like' );
 	if ( ! $embed ) {
@@ -21,13 +21,13 @@ $verb =  Kind_Taxonomy::get_kind_info( get_post_kind_slug(), 'verb' )
 			$cite['name'] = Kind_View::get_post_type_string( $url );
 		}
 		if ( isset( $url ) ) {
-			echo sprintf( '<p class="lead">%1s: <a href="%2s" class="p-name u-url">%3s</a></p>', esc_html( $verb ), esc_url( $url ), esc_html( $cite['name'] ) );
+			echo sprintf( '<p class="lead">%1s: <a href="%2s" class="p-name u-url u-like-of">%3s</a></p>', esc_html( $verb ), esc_url( $url ), esc_html( $cite['name'] ) );
 		} else {
 			echo sprintf( '<span class="p-name">%1s</span>', esc_html( $cite['name'] ) );
 		}
 	}
 	?>
-	<?php if ( $cite && ( ( array_key_exists( 'summary', $cite ) && '' !== $cite['summary'] ) || isset( $embed ) ) ) : ?>
+	<?php if ( $cite && ( ( array_key_exists( 'summary', $cite ) && '' !== trim( $cite['summary'] ) ) || isset( $embed ) ) ) : ?>
 	<blockquote class="e-summary blockquote">
 		<?php
 		if ( $embed ) {
