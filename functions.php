@@ -148,3 +148,5 @@ require get_template_directory() . '/inc/template-tags.php';
  * Plugin support for the theme.
  */
 require get_template_directory() . '/inc/plugin-support.php';
+
+require get_template_directory() . '/widgets/class-mrkapowski-hcard-widget.php';

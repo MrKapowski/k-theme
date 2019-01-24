@@ -27,8 +27,6 @@ $embed  = self::get_embed( $url );
 		}
 	}
 	?>
-	</header>
-
 	<?php if ( $cite ) : ?>
 	<blockquote class="e-summary blockquote">
 		<?php

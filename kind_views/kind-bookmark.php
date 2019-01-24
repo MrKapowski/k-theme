@@ -13,7 +13,7 @@ $embed  = self::get_embed( $url );
 
 ?>
 
-<section class="u-bookmark-of h-cite post-kind post-kind-bookmark">
+<section class="h-cite post-kind post-kind-bookmark">
 	<!-- <header> -->
 	<?php
 	echo Kind_Taxonomy::get_before_kind( 'bookmark' );
@@ -22,7 +22,7 @@ $embed  = self::get_embed( $url );
 			$cite['name'] = self::get_post_type_string( $url );
 		}
 		if ( isset( $url ) ) {
-			echo sprintf( '<p class="lead">Bookmarked: <a href="%1s" class="p-name u-url">%2s</a></p>', $url, $cite['name'] );
+			echo sprintf( '<p class="lead">Bookmarked: <a href="%1s" class="u-bookmark-of p-name u-url">%2s</a></p>', $url, $cite['name'] );
 		} else {
 			echo sprintf( '<p class="lead"><span class="p-name">%1s</span></p>', $cite['name'] );
 		}

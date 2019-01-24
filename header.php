@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- WP stuff -->
 		<meta charset="<?php bloginfo( 'charset' ); ?>" />	
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
@@ -20,11 +19,11 @@
 		<!-- WP-related -->
 		<?php wp_head(); ?>
 	</head>
-	<body <?php body_class(); ?> itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<body <?php body_class( array( 'h-feed', 'hfeed' ) ); ?> itemscope="itemscope" itemtype="http://schema.org/WebPage">
 		<hr class="grad">
 		<!-- Navigation Container -->
 		<div class="container">
-			<nav id="mainnav" class="navbar navbar-light  align-items-baseline justify-content-start flex-nowrap flex-sm-row">
+			<nav id="mainnav" class="navbar navbar-light align-items-baseline justify-content-start flex-nowrap flex-sm-row">
 				<!-- Site Branding -->
 				<div class="d-flex flex-row align-items-baseline ">
 					<?php /* TODO: Make this logo customisable */ ?>
@@ -37,7 +36,7 @@
 							<path fill="url(#b)" d="M67 430c-19-33-37.8-66.3-56.2-99.8 26 3.3 52 8.2 78.3 11 12.7-62 23-124.2 35-186.2 22.5 55.6 42 112.2 64.6 168 27-16.3 53.4-33.7 80.5-49.8-7.7 25.3-16.7 50.2-24.5 75.5 16.2-4 32-9.4 48.3-13.4-18 32.8-36.8 65-55.2 97.5h-25.8c10.8-19 21.8-39.3 31.8-57.8-11.5 3-23.3 6.5-35 9.7 6.2-19 13-37.8 18.6-57-17 9.4-33 20.8-50 29.8-15.5-40-30.4-80.5-45.6-120.7-8 44-15.8 87.8-24.3 131.6-17.6-1.8-35-5-52.3-7 12.7 24 26.6 47.5 39.8 71.3-8.7.2-17.4 0-26 0L67 430z" transform="translate(0 -138.25)"/>
 						</svg>
 					</a>
-					<h1 class="h6"><a id="site-name" class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+					<h1 class="h6"><a id="site-name" class="navbar-brand p-name u-url" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 					<!-- Navigation links -->
 						<?php
 						wp_nav_menu(
@@ -52,10 +51,6 @@
 					<!-- /End Site Branding --> 
 			</nav>
 		</div>
-
-		<div class="container"><hr></div>
 		<div class="container"><!-- Content Grid Container -->
-
 			<div class="row"><!-- Content Grid Row -->
-			<?php get_sidebar(); ?>
-				<main id="content" class="col-lg-9 flex-md-last order-first h-feed hfeed"><!-- Main Content Area -->
+					<main id="content" class="col-lg-9 flex-md-first order-first"><!-- Main Content Area -->
