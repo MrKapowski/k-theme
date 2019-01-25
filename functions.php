@@ -150,3 +150,11 @@ require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/plugin-support.php';
 
 require get_template_directory() . '/widgets/class-mrkapowski-hcard-widget.php';
+
+function mrkapowski_mime_types( $mime_types ) {
+	$mime_types['svg']  = 'image/svg+xml'; //Adding svg extension
+	$mime_types['jp2']  = 'image/jp2'; //Adding JP2 extension
+	$mime_types['webp'] = 'image/webp'; //Adding svg extension
+	return $mime_types;
+}
+add_filter( 'upload_mimes', 'mrkapowski_mime_types', 1, 1 );

@@ -10,7 +10,7 @@ if ( ! $cite ) {
 }
 $url   = $mf2_post->get_single( ifset( $cite['url'], array() ) );
 $name  = $mf2_post->get_single( $cite['name'] );
-$embed = self::get_embed( $url );
+$embed = Kind_View::get_embed( $url );
 
 ?>
 
@@ -20,7 +20,7 @@ $embed = self::get_embed( $url );
 echo Kind_Taxonomy::get_before_kind( 'checkin' );
 if ( ! $embed ) {
 	if ( ! array_key_exists( 'name', $cite ) ) {
-		$cite['name'] = self::get_post_type_string( $url );
+		$cite['name'] = Kind_View::get_post_type_string( $url );
 	}
 	if ( isset( $url ) ) {
 		echo sprintf( '<a href="%1s" class="u-checkin h-card">%2s</a>', $url, $name );

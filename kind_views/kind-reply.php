@@ -7,14 +7,12 @@
 if ( ! $cite ) {
 	return;
 }
-$url    = ifset( $cite['url'], '' );
+$url = ifset( $cite['url'], '' );
 if ( ( ! isset( $cite['author']['url'] ) ) && isset( $url ) ) {
 	$cite['author']['url'] = $url;
 }
 $author = Kind_View::get_hcard( ifset( $cite['author'] ) );
-
-$embed  = self::get_embed( $url );
-
+$embed  = Kind_View::get_embed( $url );
 ?>
 
 <section class="response u-in-reply-to h-cite post-kind post-kind-reply">
@@ -22,7 +20,7 @@ $embed  = self::get_embed( $url );
 	echo Kind_Taxonomy::get_before_kind( 'reply' );
 	if ( ! $embed ) {
 		if ( ! array_key_exists( 'name', $cite ) ) {
-			$cite['name'] = self::get_post_type_string( $url );
+			$cite['name'] = Kind_View::get_post_type_string( $url );
 		}
 		if ( isset( $url ) ) {
 			echo sprintf( '<p class="lead">Reply To: <a href="%1s" class="p-name u-url">%2s</a></p>', $url, $cite['name'] );

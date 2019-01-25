@@ -154,7 +154,7 @@ add_filter( 'the_content', 'mrkapowski_remove_image_dimensions', 30 );
 
 function mrkapowski_attachment_attr( $attr, $attachment, $size ) {
 	if ( isset( $attr['class'] ) ) {
-		$attr['class'] .= ' img-fluid';
+		$attr['class'] .= ' img-fluid u-photo';
 	}
 	return $attr;
 }

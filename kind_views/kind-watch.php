@@ -3,7 +3,7 @@
   Watch Template
  *
  */
-
+$mf2_post = new MF2_Post( $post );
 if ( ! $cite ) {
 	return;
 }

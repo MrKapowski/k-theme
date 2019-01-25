@@ -3,13 +3,13 @@
  * Read Template
  *
  */
-
+$mf2_post = new MF2_Post( $post );
 if ( ! $cite ) {
 	return;
 }
 $author = Kind_View::get_hcard( ifset( $cite['author'] ) );
 $url    = ifset( $cite['url'] );
-$embed  = self::get_embed( $url );
+$embed  = Kind_View::get_embed( $url );
 $read   = $mf2_post->get( 'read-status', true );
 
 ?>
@@ -20,7 +20,7 @@ $read   = $mf2_post->get( 'read-status', true );
 	echo Kind_Taxonomy::get_before_kind( 'read' );
 	if ( ! $embed ) {
 		if ( ! array_key_exists( 'name', $cite ) ) {
-			$cite['name'] = self::get_post_type_string( $url );
+			$cite['name'] = Kind_View::get_post_type_string( $url );
 		}
 		if ( $read ) {
 			echo sprintf( ' - <span class="p-read-status">%1s</span>', Kind_View::read_text( $read ) );

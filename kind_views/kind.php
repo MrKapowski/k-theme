@@ -3,7 +3,7 @@
   Default Template
  *	The Goal of this Template is to be a general all-purpose model that will be replaced by customization in other templates
  */
-
+$mf2_post = new MF2_Post( $post );
 $author = array();
 if ( isset( $cite['author'] ) ) {
 	$author = Kind_View::get_hcard( $cite['author'] );
@@ -14,7 +14,7 @@ if ( isset( $cite['url'] ) ) {
 }
 $site_name = Kind_View::get_site_name( $cite );
 $title     = Kind_View::get_cite_title( $cite );
-$embed     = self::get_embed( $url );
+$embed     = Kind_View::get_embed( $url );
 $duration  = $mf2_post->get( 'duration', true );
 if ( ! $duration ) {
 		$duration = calculate_duration( $mf2_post->get( 'dt-start' ), $mf2_post->get( 'dt-end' ) );

@@ -65,11 +65,14 @@ add_filter( 'jetpack_honor_dnt_header_for_stats', '__return_true' );
  * Provides various overrides to functionality provided by the Semantic Linkbacks Plugin
  * @since K 0.8.4
  */
-function mrkapowski_semantic_linkbacks() {
+function mrkapowski_indie_web_plugins() {
 	remove_action( 'comment_form_before', array( 'Linkbacks_Handler', 'show_mentions' ) );
 	remove_action( 'comment_form_comments_closed', array( 'Linkbacks_Handler', 'show_mentions' ) );
 	remove_filter( 'wp_list_comments_args', array( 'Linkbacks_Handler', 'filter_comment_args' ) );
 	remove_filter( 'get_comment_text', array( 'Linkbacks_Handler', 'comment_text_add_cite' ), 11 );
+
+	remove_filter( 'the_content', array( 'Kind_View', 'content_response' ), 20 );
+	remove_filter( 'the_excerpt', array( 'Kind_View', 'excerpt_response' ), 20 );
 
 	add_action( 'comment_mentions', 'mrkapowski_show_mentions' );
 }
@@ -77,7 +80,7 @@ function mrkapowski_semantic_linkbacks() {
  * Actions our Semantic Linkback overrides
  * @since K 0.8.4
  */
-add_action( 'wp_loaded', 'mrkapowski_semantic_linkbacks' );
+add_action( 'wp_loaded', 'mrkapowski_indie_web_plugins' );
 
 /**
  * Overrides the Webmention comment form with our bundled template

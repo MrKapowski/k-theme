@@ -3,12 +3,12 @@
  * Photo Template
  *
  */
-
+$mf2_post = new MF2_Post( $post );
 $photos = $mf2_post->get_images();
 $embed  = null;
 if ( ! $photos && is_array( $cite ) ) {
 	$url   = ifset( $cite['url'] );
-	$embed = self::get_embed( $url );
+	$embed = Kind_View::get_embed( $url );
 	if ( ! $embed ) {
 		$embed = kind_photo_gallery( $url );
 	}

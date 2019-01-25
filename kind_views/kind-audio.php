@@ -20,7 +20,7 @@ if ( $audios && is_array( $audios ) ) {
 
 if ( $cite && ! $audios ) {
 	$url   = ifset( $cite['url'] );
-	$embed = self::get_embed( $url );
+	$embed = Kind_View::get_embed( $url );
 	if ( ! $embed ) {
 		$embed = kind_audio_gallery( $url );
 	}

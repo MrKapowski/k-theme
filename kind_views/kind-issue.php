@@ -9,7 +9,7 @@ if ( ! $cite ) {
 }
 $author = Kind_View::get_hcard( ifset( $cite['author'] ) );
 $url    = ifset( $cite['url'] );
-$embed  = self::get_embed( $url );
+$embed  = Kind_View::get_embed( $url );
 
 ?>
 
@@ -19,7 +19,7 @@ $embed  = self::get_embed( $url );
 echo Kind_Taxonomy::get_before_kind( 'issue' );
 if ( ! $embed ) {
 	if ( ! array_key_exists( 'name', $cite ) ) {
-		$cite['name'] = self::get_post_type_string( $url );
+		$cite['name'] = Kind_View::get_post_type_string( $url );
 	}
 	if ( isset( $url ) ) {
 		echo sprintf( '<a href="%1s" class="p-name u-url">%2s</a>', $url, $cite['name'] );

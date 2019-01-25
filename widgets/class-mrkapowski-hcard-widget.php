@@ -92,7 +92,7 @@ class MrKapowski_HCard_Widget extends WP_Widget {
 				'default',
 				'',
 				array(
-					'class' => array( 'img-fluid', 'card-image-top', 'u-photo', 'hcard-photo' ),
+					'class' => array( 'img-fluid', 'card-img-top', 'u-photo', 'hcard-photo' ),
 				)
 			);
 		} else {
