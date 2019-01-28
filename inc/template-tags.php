@@ -128,32 +128,57 @@ if ( ! function_exists( 'mrkapowski_the_tags' ) ) {
 			}
 			$html .= '</span>';
 		}
-		echo $html;
+		echo wp_kses(
+			$html,
+			array(
+				'ul'  => array(
+					'class' => array(),
+				),
+				'li'  => array(
+					'class' => array(),
+				),
+				'a'   => array(
+					'class' => array(),
+					'title' => array(),
+					'href'  => array(),
+				),
+				'svg' => array(
+					'class'       => array(),
+					'title'       => array(),
+					'aria-hidden' => array(),
+					'role'        => array(),
+				),
+				'use' => array(
+					'class'      => array(),
+					'title'      => array(),
+					'href'       => array(),
+					'xlink:href' => array(),
+				),
+			)
+		);
 	}
 }
 function mrkapowski_caption( $output, $attr, $content = null ) {
-	extract(
-		shortcode_atts(
-			array(
-				'id'      => '',
-				'align'   => 'alignnone',
-				'width'   => '',
-				'caption' => '',
-			),
-			$attr
-		)
+	shortcode_atts(
+		array(
+			'id'      => '',
+			'align'   => 'alignnone',
+			'width'   => '',
+			'caption' => '',
+		),
+		$attr
 	);
 
-	if ( empty( $caption ) ) {
+	if ( empty( $attr['caption'] ) ) {
 		return $content;
 	}
 
-	if ( $id ) {
-		$id = 'id="' . $id . '" ';
+	if ( $attr['id'] ) {
+		$attr['id'] = 'id="' . $attr['id'] . '" ';
 	}
 
-	return '<figure ' . $id . 'class="card wp-caption ' . $align . '">'
-	. do_shortcode( $content ) . '<figcaption class="card-body wp-caption-text">' . $caption . '</figcaption></figure>';
+	return '<figure ' . $attr['id'] . 'class="card wp-caption ' . $attr['align'] . '">'
+	. do_shortcode( $content ) . '<figcaption class="card-body wp-caption-text">' . $attr['caption'] . '</figcaption></figure>';
 }
 
 add_filter( 'img_caption_shortcode', 'mrkapowski_caption', 3, 10 );
@@ -247,7 +272,7 @@ function mrkapowski_gallery( $output, $attr, $instance ) {
 	}
 
 	$columns   = intval( $atts['columns'] );
-	$itemwidth = floor(12 / $columns ); //$columns > 0 ? floor( 100 / $columns ) : 100;
+	$itemwidth = floor( 12 / $columns ); //$columns > 0 ? floor( 100 / $columns ) : 100;
 	$float     = is_rtl() ? 'right' : 'left';
 
 	$selector = "gallery-{$instance}";
@@ -304,3 +329,39 @@ function mrkapowski_gallery( $output, $attr, $instance ) {
 	return $output;
 }
 add_filter( 'post_gallery', 'mrkapowski_gallery', 3, 10 );
+
+if ( ! function_exists( 'mrkapowski_the_posts_navigation' ) ) :
+	/**
+	 * Documentation for function.
+	 */
+	function mrkapowski_the_posts_navigation() {
+		if ( function_exists( 'wp_pagenavi' ) ) {
+			wp_pagenavi();
+		} elseif ( function_exists( 'wp_paginate' ) ) {
+			wp_paginate();
+		} else {
+			mrkapowski_post_navigation();
+		}
+	}
+endif;
+
+if ( ! function_exists( 'mrkapowski_archive_title' ) ) :
+	/**
+	 * Documentation for function.
+	 */
+	function mrkapowski_archive_title() {
+		$title = get_the_archive_title();
+		if ( ! empty( $title ) ) {
+			echo wp_kses(
+				sprintf( '<h1>%1s: <span class="text-compliment">%2s</span></h1>', __( 'Archive of', 'mrkapowski' ), $title ),
+				array(
+					'h1'   => array(),
+					'span' => array(
+						'class' => array(),
+					),
+				)
+			);
+		}
+	}
+endif;
+

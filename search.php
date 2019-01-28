@@ -1,8 +1,15 @@
 <?php get_header(); ?>
 				<?php if ( have_posts() ) : ?>
+				<header class="search-header d-flex justify-content-center">
+					<h1>
+						<?php _e( 'Search results for:', 'mrkapowski' ); ?>
+						<span class="text-compliment"><?php echo get_search_query(); ?></span>
+					</h1>
+				</header><!-- .page-header -->
 					<?php while ( have_posts() ) : ?>
-						<?php the_post(); ?>
 						<?php
+						the_post();
+
 						/* Include the Post-Format-specific template for the content.
 						* If you want to override this in a child theme then include a file
 						* called content-___.php (where ___ is the Post Format name) and that will be used instead.
@@ -13,7 +20,6 @@
 				<?php else : ?>
 					<?php get_template_part( 'template-parts/list/content', 'none' ); ?>
 				<?php endif; ?>
-				<?php if ( is_home() ) : ?>
 					<footer>
 						<nav class="">
 							<?php mrkapowski_the_posts_navigation(); ?>
@@ -32,5 +38,4 @@
 						</nav>
 						<?php endif; ?>
 					</footer>
-				<?php endif; ?>
 <?php get_footer(); ?>

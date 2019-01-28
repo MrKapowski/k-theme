@@ -5,7 +5,10 @@
  */
 ?>
 <?php get_header(); ?>
-				<h2>A Brief Listing of Everything on <?php bloginfo( 'name' ); ?></h2>
+				<header class="sitemap-header d-flex justify-content-center">
+					<h1>A Brief Listing of Everything on <?php bloginfo( 'name' ); ?></h1>
+				</header>
+				<hr class="w-50">
 				<?php
 				// the query
 				$header        = '';
@@ -32,9 +35,9 @@
 					<ul class="list-unstyled sitemap">
 						<?php endif; ?>
 						<li><a href="<?php the_permalink(); ?>">
-						<?php echo mrkapowski_post_type_icon(); /* phpcs:ignore */ ?>
+						<?php mrkapowski_post_type_icon(); ?>
 						<?php if ( ! get_the_title() ) : ?>
-							<?php echo mrkapowski_post_type(); /* phpcs:ignore */ ?> at <?php the_time( 'g:i a' ); ?>
+							<?php mrkapowski_post_type(); ?> at <?php the_time( 'g:i a' ); ?>
 						<?php else : ?>
 							<?php the_title(); ?>
 						<?php endif; ?></a>  | <small content="<?php the_date_xml(); ?>"><a href="<?php the_permalink(); ?>" rel="permalink" class="text-muted"><?php echo get_the_date( 'F j, Y' ); ?></a></small></li>
@@ -46,17 +49,4 @@
 				<?php else : ?>
 					<p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
 				<?php endif; ?>
-					<footer>
-						<nav class="post footer">
-							<ul class="nav justify-content-center nav-fill">
-								<li class="nav-item next">
-									&nbsp;
-								</li>
-								<li class="nav-item prev">
-									&nbsp;
-								</li>
-							</ul>
-							<hr>
-						</nav>
-					</footer>
 <?php get_footer(); ?>
