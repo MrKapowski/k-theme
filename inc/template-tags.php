@@ -364,4 +364,3 @@ if ( ! function_exists( 'mrkapowski_archive_title' ) ) :
 		}
 	}
 endif;
-
