@@ -29,8 +29,10 @@
 								<?php
 								if ( is_single() ) {
 									mrkapowski_the_tags();
+									echo mrkapowski_get_syndication_links( $post );
 								}
 								?>
 								<?php get_template_part( 'template-parts/posts/publisher-details' ); ?>
 							</section>
+
 						</header>

@@ -35,7 +35,8 @@ article hr.grad { margin: 1rem auto; }
 }
 .mention-list { display: flex; flex-wrap: wrap; }
 .mention-list li { margin: 2px; }
-.icon-tag { height: 0.5rem; width: 0.5rem; }
+.icon-tag, .relsyn .svg-icon svg { height: 0.5rem; width: 0.5rem; }
+.relsyn .svg-icon svg { height: 1em; width: 1em; }
 h2.h1 svg {
     height: 1.8rem;
     width: 1.8rem;

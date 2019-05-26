@@ -112,7 +112,7 @@ if ( ! function_exists( 'mrkapowski_the_tags' ) ) {
 		$tags = get_the_tags();
 		$html = '';
 		if ( $tags ) {
-			$html = '<ul class="post_tags list-inline small">';
+			$html = '<ul class="post_tags list-inline small mb-0">';
 			foreach ( $tags as $tag ) {
 				$tag_link = get_tag_link( $tag->term_id );
 
@@ -126,7 +126,7 @@ if ( ! function_exists( 'mrkapowski_the_tags' ) ) {
 				);
 				$html .= " {$tag->name}</a></li>";
 			}
-			$html .= '</span>';
+			$html .= '</ul>';
 		}
 		echo wp_kses(
 			$html,

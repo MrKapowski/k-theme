@@ -17,7 +17,7 @@
 		<meta name="theme-color" content="#ffffff">
 		<meta name="robots" content="noindex, follow">
 		<!-- WP-related -->
-		<link rel="shortlink" href="<?php echo wp_get_shortlink(); ?>">
+		<link rel="shortlink" href="<?php echo esc_url( wp_get_shortlink() ); ?>">
 		<?php wp_head(); ?>
 	</head>
 	<body <?php body_class( ( ! is_single() ) ? array( 'h-feed', 'hfeed' ) : '' ); ?> itemscope="itemscope" itemtype="http://schema.org/WebPage">

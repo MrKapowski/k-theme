@@ -70,9 +70,12 @@ function mrkapowski_indie_web_plugins() {
 	remove_action( 'comment_form_comments_closed', array( 'Linkbacks_Handler', 'show_mentions' ) );
 	remove_filter( 'wp_list_comments_args', array( 'Linkbacks_Handler', 'filter_comment_args' ) );
 	remove_filter( 'get_comment_text', array( 'Linkbacks_Handler', 'comment_text_add_cite' ), 11 );
+	remove_filter( 'the_content', array( 'Syn_Config', 'the_content' ), 30 );
 
 	remove_filter( 'the_content', array( 'Kind_View', 'content_response' ), 20 );
 	remove_filter( 'the_excerpt', array( 'Kind_View', 'excerpt_response' ), 20 );
+
+	add_filter( 'syn_links_display_defaults', 'mrkapowski_syndication_links_defaults' );
 
 	add_action( 'comment_mentions', 'mrkapowski_show_mentions' );
 }
@@ -112,3 +115,61 @@ function mrkapowski_kind_hcard( $string, $author, $args ) {
  * Filters the webmention form, so our custom template is applied
  */
 add_filter( 'get_hcard', 'mrkapowski_kind_hcard', 10, 3 );
+
+/**
+ * Overrides Syndication Links output
+ * @since K 0.8.4
+ */
+function mrkapowski_syndication_links_defaults() {
+	$display  = Syn_Meta::get_syndication_links_display_option();
+	$defaults = array(
+		'style'            => 'ul',
+		'text'             => in_array( $display, array( 'text', 'iconstext' ), true ),
+		'icons'            => in_array( $display, array( 'icons', 'iconstext' ), true ),
+		'container-css'    => 'relsyn list-inline small',
+		'list-item-css'    => 'list-inline-item',
+		'single-css'       => 'syn-link',
+		'text-css'         => 'syn-text',
+		'show_text_before' => false,
+	);
+	return $defaults;
+}
+
+function mrkapowski_get_syndication_links( $object = null, $args = array() ) {
+	$r = wp_parse_args( $args, Syn_Meta::get_syndication_links_display_defaults() );
+
+	$links = Syn_Meta::get_syndication_links_elements( $object, $r );
+	if ( empty( $links ) ) {
+		return '';
+	}
+
+	if ( $r['show_text_before'] ) {
+		$textbefore = Syn_Meta::get_syndication_links_text_before( $r['text-css'] );
+	} else {
+		$textbefore = '';
+	}
+
+	switch ( $r['style'] ) {
+		case 'p':
+			$before = '<p class="' . $r['container-css'] . '"><span>';
+			$sep    = '</span><span>';
+			$after  = '</span></p>';
+			break;
+		case 'ol':
+			$before = '<ol class="' . $r['container-css'] . '"><li class="' . $r['list-item-css'] . '">';
+			$sep    = '</li><li class="' . $r['list-item-css'] . '">';
+			$after  = '</li></ol>';
+			break;
+		case 'span':
+			$before = '<span class="' . $r['container-css'] . '">';
+			$sep    = ' ';
+			$after  = '</span>';
+			break;
+		default:
+			$before = '<ul class="' . $r['container-css'] . '"><li class="' . $r['list-item-css'] . '">';
+			$sep    = '</li><li class="' . $r['list-item-css'] . '">';
+			$after  = '</li></ul>';
+	}
+
+	return $textbefore . $before . join( $sep, $links ) . $after;
+}
